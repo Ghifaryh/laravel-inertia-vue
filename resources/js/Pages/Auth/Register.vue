@@ -3,24 +3,24 @@ import { useForm } from "@inertiajs/vue3";
 import TextInput from "../Components/TextInput.vue";
 
 const form = useForm({
-    name: null,
-    email: null,
-    password: null,
-    password_confirmation: null,
-    avatar: null,
-    preview: null,
+  name: null,
+  email: null,
+  password: null,
+  password_confirmation: null,
+  avatar: null,
+  preview: null,
 });
 
 const change = (e) => {
-    form.avatar = e.target.files[0];
-    form.preview = URL.createObjectURL(e.target.files[0]);
+  form.avatar = e.target.files[0];
+  form.preview = URL.createObjectURL(e.target.files[0]);
 };
 
 const submit = () => {
-    //   form.post("/register", {
-    form.post(route("register"), {
-        onError: () => form.reset("password", "password_confirmation"),
-    });
+  //   form.post("/register", {
+  form.post(route("register"), {
+    onError: () => form.reset("password", "password_confirmation"),
+  });
 };
 </script>
 

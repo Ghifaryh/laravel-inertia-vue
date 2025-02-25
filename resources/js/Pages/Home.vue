@@ -1,9 +1,20 @@
 <script setup>
+import { ref, watch } from "vue";
 import PaginationLinks from "./Components/PaginationLinks.vue";
+import { router } from "@inertiajs/vue3";
+import { debounce } from "lodash";
 
-defineProps({
+const props = defineProps({
   users: Object,
+  searchTerm: String,
 });
+
+const search = ref(props.searchTerm);
+// watch(search, (q) => router.get("/", { search: q }, { preserveState: true }));
+watch(
+  search,
+  debounce((q) => router.get("/", { search: q }, { preserveState: true }), 500)
+);
 
 // format date
 const getDate = (date) =>
@@ -18,6 +29,12 @@ const getDate = (date) =>
   <Head :title="` ${$page.component}`" />
   <h1>Home Page</h1>
   <div>
+    <div class="flex justify-end mb-4">
+      <div class="w-1/4">
+        <input type="search" placeholder="search" v-model="search" />
+      </div>
+    </div>
+
     <table>
       <thead>
         <tr class="bg-slate-300">
@@ -31,10 +48,11 @@ const getDate = (date) =>
         <tr v-for="user in users.data" :key="user.id">
           <td>
             <img
-              :src="user.avatar
+              :src="
+                user.avatar
                   ? 'storage/' + user.avatar
                   : 'storage/avatars/111008739_p0.png'
-                "
+              "
               class="avatar"
             />
           </td>

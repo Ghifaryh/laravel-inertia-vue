@@ -24,10 +24,11 @@
         <div v-if="$page.props.auth.user" class="space-x-6 flex">
           <img
             class="avatar"
-            :src="$page.props.auth.user.avatar
-                    ? 'storage/' + $page.props.auth.user.avatar
-                    : 'storage/avatars/111008739_p0.png'
-                "
+            :src="
+              $page.props.auth.user.avatar
+                ? 'storage/' + $page.props.auth.user.avatar
+                : 'storage/avatars/111008739_p0.png'
+            "
             alt="avatar"
           />
           <Link
